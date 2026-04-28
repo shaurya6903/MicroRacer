@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-neon-green: #39FF14;
+  --color-electric-blue: #00E5FF;
+  --color-hot-pink: #FF007F;
+  --color-sun-yellow: #FFEA00;
+  --color-track-grey: #333333;
+  --color-grass-green: #2D5A27;
+  
+  --font-vibrant: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  --animate-spin-slow: spin-slow 3s linear infinite;
+}
+
+@layer base {
+  body {
+    @apply font-vibrant bg-[#1a1a1a] text-white;
+  }
+}
