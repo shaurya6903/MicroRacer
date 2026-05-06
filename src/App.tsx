@@ -554,38 +554,45 @@ export default function App() {
         setPhase('race');
     }
   }, [phase, countdown, mode]);
+useEffect(() => {
+  const handleKeyDown = (e: KeyboardEvent) => {
 
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      const k = e.key.toLowerCase();
-      if (k === 'w' || k === 'arrowup') gameState.current.keys.w = true;
-      if (k === 'a' || k === 'arrowleft') gameState.current.keys.a = true;
-      if (k === 's' || k === 'arrowdown') gameState.current.keys.s = true;
-      if (k === 'd' || k === 'arrowright') gameState.current.keys.d = true;
-      if (k === 'p') gameState.current.keys.p = true;
-      if (k === ' ') {
-          gameState.current.keys.space = true;
-          e.preventDefault();
-      }
-      if (e.key === 'Escape') setPhase('menu');
-    };
-    const handleKeyUp = (e: KeyboardEvent) => {
-      const k = e.key.toLowerCase();
-      if (k === 'w' || k === 'arrowup') gameState.current.keys.w = false;
-      if (k === 'a' || k === 'arrowleft') gameState.current.keys.a = false;
-      if (k === 's' || k === 'arrowdown') gameState.current.keys.s = false;
-      if (k === 'd' || k === 'arrowright') gameState.current.keys.d = false;
-      if (k === 'p') gameState.current.keys.p = false;
-      if (k === ' ') gameState.current.keys.space = false;
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    window.addEventListener('keyup', handleKeyUp);
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-      window.removeEventListener('keyup', handleKeyUp);
-    };
-  }, []);
+    const c = e.code; 
 
+    if (c === 'KeyW' || c === 'ArrowUp') gameState.current.keys.w = true;
+    if (c === 'KeyA' || c === 'ArrowLeft') gameState.current.keys.a = true;
+    if (c === 'KeyS' || c === 'ArrowDown') gameState.current.keys.s = true;
+    if (c === 'KeyD' || c === 'ArrowRight') gameState.current.keys.d = true;
+    if (c === 'KeyP') gameState.current.keys.p = true;
+    
+    if (c === 'Space') {
+        gameState.current.keys.space = true;
+
+        e.preventDefault(); 
+    }
+    
+    if (c === 'Escape') setPhase('menu');
+  };
+
+  const handleKeyUp = (e: KeyboardEvent) => {
+    const c = e.code;
+
+    if (c === 'KeyW' || c === 'ArrowUp') gameState.current.keys.w = false;
+    if (c === 'KeyA' || c === 'ArrowLeft') gameState.current.keys.a = false;
+    if (c === 'KeyS' || c === 'ArrowDown') gameState.current.keys.s = false;
+    if (c === 'KeyD' || c === 'ArrowRight') gameState.current.keys.d = false;
+    if (c === 'KeyP') gameState.current.keys.p = false;
+    if (c === 'Space') gameState.current.keys.space = false;
+  };
+
+  window.addEventListener('keydown', handleKeyDown);
+  window.addEventListener('keyup', handleKeyUp);
+  
+  return () => {
+    window.removeEventListener('keydown', handleKeyDown);
+    window.removeEventListener('keyup', handleKeyUp);
+  };
+}, []);
   const generateWorld = (targetMode: GameMode, selectedBiome: Biome, isSandbox: boolean) => {
     gameState.current.obstacles = [];
     const rawPoints: {x: number, y: number}[] = [];
